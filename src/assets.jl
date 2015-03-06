@@ -1,3 +1,9 @@
+abstract AbstractCurrency
+
+type Currency <: AbstractCurrency
+    origin::UTF8String
+end
+
 abstract FinancialAsset
 
 type Stock <: FinancialAsset
@@ -5,13 +11,30 @@ type Stock <: FinancialAsset
     currency::Currency
     tick::Float64
     multiplier::Float64
+    id::Union(Nullable{FinancialID},FinancialID)
 end
 
-Stock(ticker::Ticker) = Stock(ticker, USD, .01, 1)
+Stock(ticker::Ticker) = Stock(ticker, USD, .01, 1, Nullable{FinancialID}())
 
 type Future <: FinancialAsset
-
+    ticker::Ticker
+    suffix::UTF8String
+    currency::Currency
+    tick::Union(Float64, Nullable{Float64})
+    multiplier::Union(Float64, Nullable{Float64})
+    start::Union(Date, Nullable{Date})
+    expiry::Union(Date, Nullable{Date})
+    id::Union(FinancialID, Nullable{FinancialID})
 end
+
+Future(ticker::Ticker) = Future(ticker, 
+                                "", 
+                                USD,
+                                Nullable{Float64}(), 
+                                Nullable{Float64}(), 
+                                Nullable{Date}(), 
+                                Nullable{Date}(), 
+                                Nullable{FinancialID}())
 
 type Bond <: FinancialAsset
 end
@@ -21,82 +44,50 @@ type CurrencyPair <: FinancialAsset
     quoteside::Currency
 end
 
-abstract FinancialID
-
-type Ticker <: FinancialID
-    id::UTF8String
-end
-
-type CUSIP <: FinancialID
-    id::UTF8String
-end
-
-type BloombergID <: FinancialID
-    id::UTF8String
-end
-
-type ReutersID <: FinancialID
-     id::UTF8String
-end
-
-abstract AbstractCurrency
-
-type Currency <: AbstractCurrency
-    origin::UTF8String
-end
-
-############ const ################
-
-const USD = Currency("USD")
-const GBP = Currency("GBP")
-const EUR = Currency("EUR")
-const AUD = Currency("AUD")
-const NZD = Currency("NZD")
-const JPY = Currency("JPY")
-
-const EURUSD = CurrencyPair(EUR,USD)
-const EURJPY = CurrencyPair(EUR,JPY)
-const AUDUSD = CurrencyPair(AUD,USD)
-const NZDUSD = CurrencyPair(NZD,USD)
-const GBPUSD = CurrencyPair(GBP,USD)
-const USDJPY = CurrencyPair(USD,JPY)
-
-const F = "Jan"
-const G = "Feb"
-const H = "Mar"
-const J = "Apr"
-const K = "May"
-const M = "Jun"
-const N = "Jul"
-const Q = "Aug"
-const U = "Sep"
-const X = "Oct"
-const V = "Nov"
-const Z = "Dec"
-
 ############ show methods ################
 
-function show(io::IO, c::CUSIP)
-    print(io, @sprintf("%s", c.id))
-end
-
-function show(io::IO, c::ReutersID)
-    print(io, @sprintf("%s", c.id))
-end
-
-function show(io::IO, c::BloombergID)
-    print(io, @sprintf("%s", c.id))
-end
-
-function show(io::IO, t::Ticker)
-    print(io, @sprintf("%s", t.id))
-end
 
 function show(io::IO, s::Stock)
     println(io, @sprintf("ticker:         %s", s.ticker))
     println(io, @sprintf("currency:       %s", s.currency))
     println(io, @sprintf("tick:           %s", s.tick))
     println(io, @sprintf("multiplier:     %s", s.multiplier))
+    if typeof(s.id) == Nullable{FinancialID} 
+    println(io, @sprintf("id:             %s", "NA"))
+    else
+    println(io, @sprintf("id:             %s", s.id))
+    end
+end
+
+function show(io::IO, f::Future)
+    println(io, @sprintf("ticker:         %s", f.ticker))
+    println(io, @sprintf("suffix:         %s", f.suffix))
+    println(io, @sprintf("currency:       %s", f.currency))
+    if typeof(f.tick) == Nullable{Float64} 
+    println(io, @sprintf("tick:           %s", "NA"))
+    else
+    println(io, @sprintf("tick:           %s", f.tick))
+    end
+    if typeof(f.multiplier) == Nullable{Float64} 
+    println(io, @sprintf("multiplier:     %s", "NA"))
+    else
+    println(io, @sprintf("multiplier:     %s", f.multiplier))
+    end
+    if typeof(f.start) == Nullable{Date} 
+    println(io, @sprintf("start:          %s", "NA"))
+    else
+    println(io, @sprintf("start:          %s", f.start))
+    end
+    if typeof(f.expiry) == Nullable{Date} 
+    println(io, @sprintf("expiry:         %s", "NA"))
+    else
+    println(io, @sprintf("expiry:         %s", f.expiry))
+    end
+    if typeof(f.id) == Nullable{FinancialID} 
+    println(io, @sprintf("id:             %s", "NA"))
+    else
+    println(io, @sprintf("id:             %s", f.id))
+    end
 end
 
 function show(io::IO, c::Currency)
