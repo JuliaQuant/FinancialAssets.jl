@@ -18,10 +18,10 @@ end
 facts("Currency constructor works") do
 
     context("Strings work") do
-        @fact Currency("AED").id => "AED"
+        @fact Currency("AED").origin => "AED"
     end
 
     context("non-strings fail") do
-        @fact_throws Currency(123).id
+        @fact_throws Currency(123).origin
     end
 end
