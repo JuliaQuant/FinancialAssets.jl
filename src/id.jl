@@ -21,3 +21,13 @@ for ID in IDLIST
     end
   end
 end
+
+abstract AbstractCurrency
+
+type Currency <: AbstractCurrency
+    origin::UTF8String
+end
+
+function show(io::IO, c::Currency)
+    print(io, @sprintf("%s", c.origin))
+end

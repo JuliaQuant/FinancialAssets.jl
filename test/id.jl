@@ -14,3 +14,14 @@ facts("FinancialID constructors works") do
         @fact_throws BloombergID(123).id 
     end
 end
+
+facts("Currency constructor works") do
+
+    context("Strings work") do
+        @fact Currency("AED").id => "AED"
+    end
+
+    context("non-strings fail") do
+        @fact_throws Currency(123).id
+    end
+end

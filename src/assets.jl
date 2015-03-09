@@ -1,90 +1,76 @@
-abstract AbstractCurrency
-
-type Currency <: AbstractCurrency
-    origin::UTF8String
-end
-
 abstract FinancialAsset
 
-type Stock <: FinancialAsset
-    ticker::Ticker
-    currency::Currency
-    tick::Float64
-    multiplier::Float64
-    id::Union(Nullable{FinancialID},FinancialID)
-end
+STOCKS = [:LongStock, :ShortStock, :Stock]
 
-Stock(ticker::Ticker) = Stock(ticker, 
-                              USD, 
-                              .01, 
-                              1., 
-                              Nullable{FinancialID}())
+for ST in STOCKS
+    @eval begin
+        type ($ST) <: FinancialAsset
+            ticker::Ticker
+            basis::Float64
+            currency::Currency
+            tick::Float64
+            multiplier::Float64
+            id::Union(Nullable{FinancialID},FinancialID)
+        end
+    end 
+end 
 
-type Future <: FinancialAsset
-    ticker::Ticker
-    suffix::UTF8String
-    currency::Currency
-    tick::Union(Float64, Nullable{Float64})
-    multiplier::Union(Float64, Nullable{Float64})
-    start::Union(Date, Nullable{Date})
-    expiry::Union(Date, Nullable{Date})
-    id::Union(FinancialID, Nullable{FinancialID})
-end
+for F in FUT
+    @eval begin
+        ($OP)(ticker, basis) = ($OP)(ticker, basis, USD, .01, 1., Nullable{FinancialID}())
+    end
+end 
 
-Future(ticker::Ticker) = Future(ticker, 
-                                "", 
-                                USD,
-                                Nullable{Float64}(), 
-                                Nullable{Float64}(), 
-                                Nullable{Date}(), 
-                                Nullable{Date}(), 
-                                Nullable{FinancialID}())
+FUTS = [:LongFuture, :ShortFuture]
 
+for F in FUTS
+    @eval begin
+        type ($F) <: FinancialAsset
+            ticker::Ticker
+            basis::Float64
+            suffix::UTF8String
+            currency::Currency
+            tick::Union(Float64, Nullable{Float64})
+            multiplier::Union(Float64, Nullable{Float64})
+            expiry::Union(Date, Nullable{Date})
+            id::Union(FinancialID, Nullable{FinancialID})
+        end
+    end 
+end 
 
-type PutOption <: FinancialAsset
-    underlying::Ticker
-    strike::Float64
-    expiry::Date
-    currency::Currency
-    style::Union(OptionExercise, Nullable{OptionExercise})
-    tick::Union(Float64, Nullable{Float64})
-    multiplier::Union(Float64, Nullable{Float64})
-    start::Union(Date, Nullable{Date})
-    id::Union(FinancialID, Nullable{FinancialID})
-end
+for F in FUT
+    @eval begin
+        ($OP)(ticker, basis) = ($OP)(ticker, basis, "", USD, 
+                                     Nullable{Float64}(), Nullable{Float64}(), 
+                                     Nullable{Date}(), Nullable{FinancialID}())
+    end
+end 
 
-PutOption(underlying::Ticker, strike::Float64) = PutOption(underlying,
-                                                           strike,
-                                                           today(), 
-                                                           USD,
-                                                           Nullable{OptionExercise}(),
-                                                           Nullable{Float64}(),
-                                                           Nullable{Float64}(),
-                                                           Nullable{Date}(),
-                                                           Nullable{FinancialID}())
+OPTIONS = [:LongPut, :LongCall, :ShortPut, :ShortCall]
 
+for OP in OPTIONS
+    @eval begin
+        type ($OP) <: FinancialAsset
+            underlying::Ticker
+            basis::Float64
+            strike::Float64
+            expiry::Date
+            currency::Currency
+            style::Union(OptionExercise, Nullable{OptionExercise})
+            tick::Union(Float64, Nullable{Float64})
+            multiplier::Union(Float64, Nullable{Float64})
+            id::Union(FinancialID, Nullable{FinancialID})
+        end
+    end 
+end 
 
-type CallOption <: FinancialAsset
-    underlying::Ticker
-    strike::Float64
-    expiry::Date
-    currency::Currency
-    style::Union(OptionExercise, Nullable{OptionExercise})
-    tick::Union(Float64, Nullable{Float64})
-    multiplier::Union(Float64, Nullable{Float64})
-    start::Union(Date, Nullable{Date})
-    id::Union(FinancialID, Nullable{FinancialID})
-end
-
-CallOption(underlying::Ticker, strike::Float64) = CallOption(underlying,
-                                                             strike,
-                                                             today(), 
-                                                             USD,
-                                                             Nullable{OptionExercise}(),
-                                                             Nullable{Float64}(),
-                                                             Nullable{Float64}(),
-                                                             Nullable{Date}(),
-                                                             Nullable{FinancialID}())
+for OP in OPTIONS
+    @eval begin
+        ($OP)(underlying, basis, strike) = ($OP)(underlying, basis, strike, today(), USD,
+                                                 Nullable{OptionExercise}(), Nullable{Float64}(), 
+                                                 Nullable{Float64}(), Nullable{FinancialID}())
+    end
+end 
 
 type CurrencyPair <: FinancialAsset
     baseside::Currency
@@ -96,7 +82,7 @@ end
 
 ############ show methods ################
 
-function show(io::IO, s::Stock)
+function show(io::IO, s::Union(LongStock, ShortStock,Stock))
     println(io, @sprintf("ticker:         %s", s.ticker))
 #     println(io, @sprintf("currency:       %s", s.currency))
 #     println(io, @sprintf("tick:           %s", s.tick))
@@ -109,7 +95,7 @@ function show(io::IO, s::Stock)
 #     end
 end
 
-function show(io::IO, f::Future)
+function show(io::IO, f::Union(LongFuture, ShortFuture))
     println(io, @sprintf("ticker:         %s", f.ticker))
     println(io, @sprintf("suffix:         %s", f.suffix))
 #     println(io, @sprintf("currency:       %s", f.currency))
@@ -145,11 +131,15 @@ function show(io::IO, f::Future)
 #     end
 end
 
-function show(io::IO, opt::Union(CallOption, PutOption))
-    if typeof(opt) == PutOption
-    println(io, @sprintf("type:           Put"))
+function show(io::IO, opt::Union(LongPut, ShortPut, LongCall, ShortCall))
+    if typeof(opt) == LongPut 
+    println(io, @sprintf("type:           LongPut"))
+    elseif typeof(opt) == LongCall 
+    println(io, @sprintf("type:           LongCall"))
+    elseif typeof(opt) == ShortPut 
+    println(io, @sprintf("type:           ShortPut"))
     else
-    println(io, @sprintf("type:           Call"))
+    println(io, @sprintf("type:           ShortCall"))
     end
 
     println(io, @sprintf("underlying:     %s", opt.underlying))
@@ -188,9 +178,6 @@ function show(io::IO, opt::Union(CallOption, PutOption))
 #     end
 end
 
-function show(io::IO, c::Currency)
-    print(io, @sprintf("%s", c.origin))
-end
 
 function show(io::IO, c::CurrencyPair)
     print(io, @sprintf("%s/%s", string(c.baseside), string(c.quoteside)))

@@ -14,7 +14,9 @@ end
 
 import Base: show
 
-export Stock, Future, PutOption, CallOption,
+export LongStock, ShortStock, Stock,
+       LongFuture, ShortFuture,
+       LongPut, ShortPut, LongCall, ShortCall,
        Ticker, OptionExercise,
        CUSIP, BloombergID, ReutersID, FinancialID,
        American, European,
@@ -26,5 +28,6 @@ export Stock, Future, PutOption, CallOption,
 include("id.jl")
 include("assets.jl")
 include("const.jl")
+include("spread.jl")
 
 end
