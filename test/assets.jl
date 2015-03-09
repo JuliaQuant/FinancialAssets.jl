@@ -4,9 +4,9 @@ facts("asset constructors work") do
         
         stk = Stock(Ticker("AAPL"))
 
-        @pending stk.ticker  => Ticker("AAPL")
-        @fact stk.currency   => USD
-        @fact stk.tick       => .01
+        @fact stk.ticker.id => "AAPL"
+        @fact stk.currency  => USD
+        @fact stk.tick      => .01
         @fact stk.multiplier => 1.0
         @fact typeof(stk.id) => Nullable{FinancialID}
     end
@@ -15,7 +15,7 @@ facts("asset constructors work") do
 
         fut = Future(Ticker("ES"))
 
-        @pending fut.ticker          => Ticker("ES")
+        @fact fut.ticker.id          => "ES"
         @fact fut.suffix             => ""
         @fact fut.currency           => USD
         @fact typeof(fut.tick)       => Nullable{Float64}
@@ -32,8 +32,8 @@ facts("asset constructors work") do
 
         @fact typeof(popt)            => PutOption
         @fact typeof(copt)            => CallOption
-        @pending popt.underlying      => Ticker("SPX")
-        @pending copt.underlying      => Ticker("SPX")
+        @fact popt.ticker.id          => Ticker("SPX")
+        @fact copt.ticker.id          => Ticker("SPX")
         @fact popt.strike             => 2010.00
         @fact copt.strike             => 2010.00
         @fact popt.expiry             => today()

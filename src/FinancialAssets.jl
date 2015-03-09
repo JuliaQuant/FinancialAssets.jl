@@ -17,6 +17,7 @@ import Base: show
 export LongStock, ShortStock, Stock,
        LongFuture, ShortFuture,
        LongPut, ShortPut, LongCall, ShortCall,
+       LongVertical, ShortVertical, CoveredCall,
        Ticker, OptionExercise,
        CUSIP, BloombergID, ReutersID, FinancialID,
        American, European,

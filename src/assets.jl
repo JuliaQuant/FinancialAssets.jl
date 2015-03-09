@@ -15,9 +15,9 @@ for ST in STOCKS
     end 
 end 
 
-for F in FUT
+for ST in STOCKS
     @eval begin
-        ($OP)(ticker, basis) = ($OP)(ticker, basis, USD, .01, 1., Nullable{FinancialID}())
+        ($ST)(ticker, basis) = ($ST)(ticker, basis, USD, .01, 1., Nullable{FinancialID}())
     end
 end 
 
@@ -38,11 +38,11 @@ for F in FUTS
     end 
 end 
 
-for F in FUT
+for F in FUTS
     @eval begin
-        ($OP)(ticker, basis) = ($OP)(ticker, basis, "", USD, 
-                                     Nullable{Float64}(), Nullable{Float64}(), 
-                                     Nullable{Date}(), Nullable{FinancialID}())
+        ($F)(ticker, basis) = ($F)(ticker, basis, "", USD, 
+                                   Nullable{Float64}(), Nullable{Float64}(), 
+                                   Nullable{Date}(), Nullable{FinancialID}())
     end
 end 
 
@@ -51,7 +51,7 @@ OPTIONS = [:LongPut, :LongCall, :ShortPut, :ShortCall]
 for OP in OPTIONS
     @eval begin
         type ($OP) <: FinancialAsset
-            underlying::Ticker
+            ticker::Ticker
             basis::Float64
             strike::Float64
             expiry::Date
@@ -66,9 +66,9 @@ end
 
 for OP in OPTIONS
     @eval begin
-        ($OP)(underlying, basis, strike) = ($OP)(underlying, basis, strike, today(), USD,
-                                                 Nullable{OptionExercise}(), Nullable{Float64}(), 
-                                                 Nullable{Float64}(), Nullable{FinancialID}())
+        ($OP)(ticker, basis, strike) = ($OP)(ticker, basis, strike, today(), USD,
+                                             Nullable{OptionExercise}(), Nullable{Float64}(), 
+                                             Nullable{Float64}(), Nullable{FinancialID}())
     end
 end 
 
@@ -142,7 +142,7 @@ function show(io::IO, opt::Union(LongPut, ShortPut, LongCall, ShortCall))
     println(io, @sprintf("type:           ShortCall"))
     end
 
-    println(io, @sprintf("underlying:     %s", opt.underlying))
+    println(io, @sprintf("ticker:         %s", opt.ticker))
     println(io, @sprintf("strike:         %s", opt.strike))
     println(io, @sprintf("expiry:         %s", opt.expiry))
     println(io, @sprintf("currency:       %s", opt.currency))
