@@ -1,3 +1,6 @@
+const American = OptionExercise("American")
+const European = OptionExercise("European")
+
 const USD = Currency("USD")
 const GBP = Currency("GBP")
 const EUR = Currency("EUR")

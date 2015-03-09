@@ -14,8 +14,11 @@ end
 
 import Base: show
 
-export Stock, Future, Bond, Option,
-       Ticker, CUSIP, BloombergID, ReutersID, FinancialID,
+export Stock, Future, PutOption, CallOption,
+       Ticker, OptionExercise,
+       CUSIP, BloombergID, ReutersID, FinancialID,
+       American, European,
+       Currency, CurrencyPair,
        USD, EUR, GBP, AUD, JPY,
        EURUSD, EURJPY, USDGBP, USDAUD, USDNZD, USDJPY,
        F, G, H, J, K, M, N, Q, U, V, X, Z

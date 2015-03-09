@@ -1,6 +1,7 @@
 abstract FinancialID
 
 IDLIST = [:Ticker, 
+          :OptionExercise,
           :CUSIP,
           :BloombergID,
           :ReutersID]
