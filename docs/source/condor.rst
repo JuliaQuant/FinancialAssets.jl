@@ -1,9 +1,5 @@
 Condor
 ======
 
-FinancialAssets is not a registered package. To add it to your Julia packages, simply do the following in 
-REPL ::
-
-    Pkg.clone("https://github.com/JuliaQuant/FinancialAssets.jl.git")
-
-This package is presently experimental and you can expect the API to change.
+A condor spread can be comapred to both the iron condor and the butterfly. It has all its component options of the same type (like the butterfly)
+but is designed to box the current market (like the iron condor). The condor costs premium and its risk is restrained to the price of the spread.

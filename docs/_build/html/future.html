@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Future &mdash; financialassetsjl 0.2.2 documentation</title>
+  <title>Futures &mdash; financialassetsjl 0.2.2 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
     <link rel="top" title="financialassetsjl 0.2.2 documentation" href="index.html"/>
         <link rel="next" title="Bond" href="bond.html"/>
-        <link rel="prev" title="Stock" href="stock.html"/> 
+        <link rel="prev" title="Stocks" href="stock.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -65,11 +65,24 @@
         
             <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stock.html">Stock</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Future</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stock.html">Stocks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bond.html">Bond</a></li>
 <li class="toctree-l1"><a class="reference internal" href="currencypair.html">CurrencyPair</a></li>
-<li class="toctree-l1"><a class="reference internal" href="option.html">Option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="option.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spreads.html">Spreads</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vertical.html">Vertical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coveredcall.html">Covered Call</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar.html">Calendar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="condor.html">Condor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butterfly.html">Butterfly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironcondor.html">Iron Condor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diagonal.html">Diagonal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntheticstock.html">Synthetic Stock</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="financialid.html">Financial IDs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="const.html">Const values</a></li>
 </ul>
 
         
@@ -93,7 +106,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Future</li>
+    <li>Futures</li>
       <li class="wy-breadcrumbs-aside">
         
           <a href="_sources/future.txt" rel="nofollow"> View page source</a>
@@ -104,14 +117,96 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="future">
-<h1>Future<a class="headerlink" href="#future" title="Permalink to this headline">¶</a></h1>
-<p>FinancialAssets is not a registered package. To add it to your Julia packages, simply do the following in
-REPL</p>
-<div class="highlight-julia"><div class="highlight"><pre><span class="n">Pkg</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="s">&quot;https://github.com/JuliaQuant/FinancialAssets.jl.git&quot;</span><span class="p">)</span>
+  <div class="section" id="futures">
+<h1>Futures<a class="headerlink" href="#futures" title="Permalink to this headline">¶</a></h1>
+<p>Futures are derivative contracts that allow the control of a fixed size of underlying asset to the owner, and an obligation to deliver the
+underlying asset at the strike price by the seller. The underlying asset can be a commodity, such as corn, or a financial index, such as
+the S&amp;P 500.</p>
+<p>Three types are provided to model futures including <tt class="docutils literal"><span class="pre">Future</span></tt>, <tt class="docutils literal"><span class="pre">LongFuture</span></tt> and <tt class="docutils literal"><span class="pre">ShortFuture</span></tt>. The <tt class="docutils literal"><span class="pre">Future</span></tt> type can be used to represent
+both long and short positions, simply by providing positive or negative values in the <tt class="docutils literal"><span class="pre">basis</span></tt> element. <tt class="docutils literal"><span class="pre">LongFuture</span></tt> and <tt class="docutils literal"><span class="pre">ShortFuture</span></tt> types are
+provided as a convenience and methods dispatched on them assumes long and short positions, respectively.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Stock type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">Future</span></tt></td>
+<td>futures contract with either long or short posiition permitted</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">LongFuture</span></tt></td>
+<td>futures contract with only long positions allowed</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ShortFuture</span></tt></td>
+<td>futures contract with only short positions allowed</td>
+</tr>
+</tbody>
+</table>
+<p>All the futures types hold the same fields. To create an object, only the <tt class="docutils literal"><span class="pre">ticker</span></tt> and <tt class="docutils literal"><span class="pre">basis</span></tt> elements needs to be provided. Default values
+or <tt class="docutils literal"><span class="pre">Nullable</span></tt> fields will be filled in for the other fields.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="58%" />
+<col width="22%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Type field</th>
+<th class="head">Description</th>
+<th class="head">Type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ticker</span></tt></td>
+<td>trading symbol</td>
+<td><tt class="docutils literal"><span class="pre">Ticker</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">basis</span></tt></td>
+<td>position price</td>
+<td><tt class="docutils literal"><span class="pre">Float64</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">suffix</span></tt></td>
+<td>month and year expiry string</td>
+<td><tt class="docutils literal"><span class="pre">UTF8String</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">currency</span></tt></td>
+<td>national currency</td>
+<td><tt class="docutils literal"><span class="pre">Currency</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">tick</span></tt></td>
+<td>increments traded in</td>
+<td><tt class="docutils literal"><span class="pre">Float64</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">multiplier</span></tt></td>
+<td>degree to adjust position based on price</td>
+<td><tt class="docutils literal"><span class="pre">Flot64</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">expirty</span></tt></td>
+<td>expiration date for the contrct</td>
+<td><tt class="docutils literal"><span class="pre">Date</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">id</span></tt></td>
+<td>a unique non-exchange identification symbol</td>
+<td><tt class="docutils literal"><span class="pre">FinancialID</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>An example in REPL, creating an object representing the ES (S&amp;P 500) contract:</p>
+<div class="highlight-julia"><div class="highlight"><pre><span class="n">julia</span><span class="o">&gt;</span> <span class="n">sp500</span> <span class="o">=</span> <span class="n">LongFuture</span><span class="p">(</span><span class="n">Ticker</span><span class="p">(</span><span class="s">&quot;ES&quot;</span><span class="p">),</span> <span class="mf">2050.25</span><span class="p">)</span>
+<span class="n">ticker</span><span class="p">:</span>         <span class="n">ES</span>
+<span class="n">suffix</span><span class="p">:</span>
 </pre></div>
 </div>
-<p>This package is presently experimental and you can expect the API to change.</p>
+<p>Other field information is accessible with standard <tt class="docutils literal"><span class="pre">.</span></tt> notation:</p>
+<div class="highlight-julia"><div class="highlight"><pre><span class="n">julia</span><span class="o">&gt;</span> <span class="n">sp500</span><span class="o">.</span><span class="n">currency</span>
+<span class="n">USD</span>
+</pre></div>
+</div>
 </div>
 
 
@@ -123,7 +218,7 @@ REPL</p>
         <a href="bond.html" class="btn btn-neutral float-right" title="Bond">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="stock.html" class="btn btn-neutral" title="Stock"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="stock.html" class="btn btn-neutral" title="Stocks"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

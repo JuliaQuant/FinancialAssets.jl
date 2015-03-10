@@ -30,7 +30,10 @@
   
     <link rel="stylesheet" href="_static/julia.css" type="text/css" />
   
-    <link rel="top" title="financialassetsjl 0.2.2 documentation" href="index.html"/> 
+    <link rel="top" title="financialassetsjl 0.2.2 documentation" href="index.html"/>
+        <link rel="up" title="Spreads" href="spreads.html"/>
+        <link rel="next" title="Covered Call" href="coveredcall.html"/>
+        <link rel="prev" title="Spreads" href="spreads.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -61,13 +64,25 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
         
         
-            <ul>
+            <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stock.html">Stock</a></li>
-<li class="toctree-l1"><a class="reference internal" href="future.html">Future</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stock.html">Stocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future.html">Futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bond.html">Bond</a></li>
 <li class="toctree-l1"><a class="reference internal" href="currencypair.html">CurrencyPair</a></li>
-<li class="toctree-l1"><a class="reference internal" href="option.html">Option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="option.html">Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="spreads.html">Spreads</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Vertical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coveredcall.html">Covered Call</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar.html">Calendar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="condor.html">Condor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butterfly.html">Butterfly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironcondor.html">Iron Condor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diagonal.html">Diagonal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="financialid.html">Financial IDs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="const.html">Const values</a></li>
 </ul>
 
         
@@ -91,6 +106,8 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
+          <li><a href="spreads.html">Spreads</a> &raquo;</li>
+      
     <li>Vertical</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -105,9 +122,8 @@
   <div class="section" id="vertical">
 <h1>Vertical<a class="headerlink" href="#vertical" title="Permalink to this headline">¶</a></h1>
 <p>A vertical spread consists of one or more options at two separate strike prices. All the options must be of the same type (either calls or puts).
-Option(s) at one strike price must be long options with limited risk (typically the cost of the option)  and the other strike price must be hold
-short option(s) with sometimes unlimited risk. Short call options have theoretically unlimited risk since a price can continue (theoretically) to
-infinity. Short put options hold the same risk as long stock and have risk equivalent to the strike price minus premium received.</p>
+Vertical spreads allow traders to sell calls and puts that have high risk and mitigate the risk with suitable long calls and puts, which have
+strikes different from the short calls and puts. All the options inside a vertical spread must have the same expiration date.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="28%" />
@@ -133,16 +149,48 @@ infinity. Short put options hold the same risk as long stock and have risk equiv
 </tr>
 </tbody>
 </table>
-<p>The strike price
-of the short option can guide us in determining if the vertical is either a short vertical or long vertical. If the short option is more in the money,
-the spread is considered a short vertical.</p>
-<p>In a short vertical, the trader receives income and hopes to keep this premium throughout the life of the vertical spread. In a long vertical, the trader
-outlays money and expects the investment to gain in value during the life of the vertical spread.</p>
+<p>Four types are provided to model vertical spreads.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="41%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Type</th>
+<th class="head">Risk</th>
+<th class="head">Reward</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td colspan="2">Long Put Vertical   | premium paid</td>
+<td>spread between long/short strikes less premium</td>
+</tr>
+<tr class="row-odd"><td colspan="2">Long Call Vertical  | premium paid</td>
+<td>spread between long/short strikes less premium</td>
+</tr>
+<tr class="row-even"><td colspan="2">Short Put Vertical  | spread between long/short strikes less premium</td>
+<td>premium received</td>
+</tr>
+<tr class="row-odd"><td colspan="2">Short Call Vertical | spread between long/short strikes less premium</td>
+<td>premium received</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="coveredcall.html" class="btn btn-neutral float-right" title="Covered Call">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="spreads.html" class="btn btn-neutral" title="Spreads"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -2,10 +2,8 @@ Vertical
 ========
 
 A vertical spread consists of one or more options at two separate strike prices. All the options must be of the same type (either calls or puts). 
-Option(s) at one strike price must be long options with limited risk (typically the cost of the option)  and the other strike price must be hold 
-short option(s) with sometimes unlimited risk. Short call options have theoretically unlimited risk since a price can continue (theoretically) to 
-infinity. Short put options hold the same risk as long stock and have risk equivalent to the strike price minus premium received. 
-
+Vertical spreads allow traders to sell calls and puts that have high risk and mitigate the risk with suitable long calls and puts, which have 
+strikes different from the short calls and puts. All the options inside a vertical spread must have the same expiration date. 
 
 +-------------------+-------------------------------------------------+ 
 | Constraint        | Description                                     | 
@@ -19,9 +17,16 @@ infinity. Short put options hold the same risk as long stock and have risk equiv
 | same expiry       | all the options have identical expiration dates |
 +-------------------+-------------------------------------------------+ 
 
-The strike price 
-of the short option can guide us in determining if the vertical is either a short vertical or long vertical. If the short option is more in the money, 
-the spread is considered a short vertical.
+Four types are provided to model vertical spreads.
 
-In a short vertical, the trader receives income and hopes to keep this premium throughout the life of the vertical spread. In a long vertical, the trader
-outlays money and expects the investment to gain in value during the life of the vertical spread.
++---------------------+------------------------------------------------+------------------------------------------------+ 
+| Type                | Risk                                           | Reward                                         | 
++=====================+================================================+================================================+ 
+| Long Put Vertical   | premium paid                                   | spread between long/short strikes less premium |
++----------------------------------------------------------------------+------------------------------------------------+ 
+| Long Call Vertical  | premium paid                                   | spread between long/short strikes less premium |
++----------------------------------------------------------------------+------------------------------------------------+ 
+| Short Put Vertical  | spread between long/short strikes less premium | premium received                               |
++----------------------------------------------------------------------+------------------------------------------------+ 
+| Short Call Vertical | spread between long/short strikes less premium | premium received                               |
++---------------------+------------------------------------------------+------------------------------------------------+ 

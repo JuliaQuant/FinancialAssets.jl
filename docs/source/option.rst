@@ -5,15 +5,16 @@ Options are derivative contracts written against an underlying asset. They come 
 depending on whether they are short or long.
 
 A long put option costs money to purchase and gives the owner the right to sell the underlying at the strike price.  A long call option also costs 
-money to purchase and gives the owner the right to purchase the underlying at the strike price. while a put option involves the right to sell. 
+money to purchase and gives the owner the right to purchase the underlying at the strike price. 
 
-A short put option pays the seller a premium, and obligates them to sell the underlying at the strike price. A short call option also pays the seller
-a premium, and requires them to sell the underlying at the strike price. 
+A short put option pays the seller a premium and obligates them to buy the underlying at the strike price should the owner of the long option chooses 
+to exercise. A short call option also pays the seller a premium, and requires them to sell the underlying at the strike price when the owner elects to 
+exercise.
 
 The risk associated with single long options is simply the cost of the option. Risks asssociated with single short options depends on whether they are
-short puts or short calls. Short puts carry the same risk as owning the underlying outright, but less so because a premium is received to sell this option.
-A single short call option also receives a premium, but this risk is considered unlimited since the price of an underlying is not bounded on the upside, 
-as they are bounded on the bottom side (underlying price cannot go below zero). 
+short puts or short calls. Short puts carry almost the same risk as owning the underlying outright, but less so because a premium is received to sell this 
+option.  A single short call option also receives a premium, but this risk is considered unlimited since the price of an underlying is not bounded on the 
+upside, as they are bounded on the bottom side (underlying price cannot go below zero). 
 
 Four types are provided to model these single options:
 

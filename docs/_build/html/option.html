@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Option &mdash; financialassetsjl 0.2.2 documentation</title>
+  <title>Options &mdash; financialassetsjl 0.2.2 documentation</title>
   
 
   
@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="_static/julia.css" type="text/css" />
   
     <link rel="top" title="financialassetsjl 0.2.2 documentation" href="index.html"/>
+        <link rel="next" title="Spreads" href="spreads.html"/>
         <link rel="prev" title="CurrencyPair" href="currencypair.html"/> 
 
   
@@ -64,11 +65,24 @@
         
             <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stock.html">Stock</a></li>
-<li class="toctree-l1"><a class="reference internal" href="future.html">Future</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stock.html">Stocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future.html">Futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bond.html">Bond</a></li>
 <li class="toctree-l1"><a class="reference internal" href="currencypair.html">CurrencyPair</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Option</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spreads.html">Spreads</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vertical.html">Vertical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coveredcall.html">Covered Call</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar.html">Calendar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="condor.html">Condor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butterfly.html">Butterfly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironcondor.html">Iron Condor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diagonal.html">Diagonal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntheticstock.html">Synthetic Stock</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="financialid.html">Financial IDs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="const.html">Const values</a></li>
 </ul>
 
         
@@ -92,7 +106,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Option</li>
+    <li>Options</li>
       <li class="wy-breadcrumbs-aside">
         
           <a href="_sources/option.txt" rel="nofollow"> View page source</a>
@@ -103,16 +117,113 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="option">
-<h1>Option<a class="headerlink" href="#option" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="options">
+<h1>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h1>
 <p>Options are derivative contracts written against an underlying asset. They come in four flavors depending whether they are calls or puts, and
 depending on whether they are short or long.</p>
-<p>A call involves the right to purchase, while a put involves the right to sell. These rights are afforded to owners of long options.</p>
-<p>A long option is purchased and the risk is limited to the purchase price of the option. A short option is sold (to the purchaser of long
-options) and may included unlimited risk. The seller receives a premium for assuming this risk.</p>
-<p>Unlimited risk only applies to short calls, since the price of the underlying can theoretically to to infinity. The risk associated with a short
-put is nearly identical to the risk associated with owning long stock, except that the premium received offsets this risk. Since an underlying
-cannot go below zero, the risk associated with a short put (not considering the premium) is the strike price.</p>
+<p>A long put option costs money to purchase and gives the owner the right to sell the underlying at the strike price.  A long call option also costs
+money to purchase and gives the owner the right to purchase the underlying at the strike price.</p>
+<p>A short put option pays the seller a premium and obligates them to buy the underlying at the strike price should the owner of the long option chooses
+to exercise. A short call option also pays the seller a premium, and requires them to sell the underlying at the strike price when the owner elects to
+exercise.</p>
+<p>The risk associated with single long options is simply the cost of the option. Risks asssociated with single short options depends on whether they are
+short puts or short calls. Short puts carry almost the same risk as owning the underlying outright, but less so because a premium is received to sell this
+option.  A single short call option also receives a premium, but this risk is considered unlimited since the price of an underlying is not bounded on the
+upside, as they are bounded on the bottom side (underlying price cannot go below zero).</p>
+<p>Four types are provided to model these single options:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="48%" />
+<col width="37%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option type</th>
+<th class="head">Description</th>
+<th class="head">Risk</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">LongPut</span></tt></td>
+<td>Right to sell underlying at strike price</td>
+<td>cost of option</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">LongCall</span></tt></td>
+<td>Right to buy underlying at strike price</td>
+<td>cost of option</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ShortPut</span></tt></td>
+<td>Obligation to sell underlying at strike price</td>
+<td>premium received less strike price</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ShortCall</span></tt></td>
+<td>Obligation to buy underlying at strike price</td>
+<td>unlimited</td>
+</tr>
+</tbody>
+</table>
+<p>Each option type as the same fields.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="56%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Type field</th>
+<th class="head">Description</th>
+<th class="head">Type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ticker</span></tt></td>
+<td>trading symbol of underlying asset</td>
+<td><tt class="docutils literal"><span class="pre">Ticker</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">basis</span></tt></td>
+<td>position price</td>
+<td><tt class="docutils literal"><span class="pre">Float64</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">strike</span></tt></td>
+<td>option strike price</td>
+<td><tt class="docutils literal"><span class="pre">Float64</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">expiry</span></tt></td>
+<td>date of option expiration</td>
+<td><tt class="docutils literal"><span class="pre">Date</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">currency</span></tt></td>
+<td>national currency</td>
+<td><tt class="docutils literal"><span class="pre">Currency</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">style</span></tt></td>
+<td>option exercise style (American, European)</td>
+<td><tt class="docutils literal"><span class="pre">OptionExercise</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">tick</span></tt></td>
+<td>increments traded in</td>
+<td><tt class="docutils literal"><span class="pre">Float64</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">multiplier</span></tt></td>
+<td>degree to adjust position based on price</td>
+<td><tt class="docutils literal"><span class="pre">Flot64</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">id</span></tt></td>
+<td>a unique non-exchange identification symbol</td>
+<td><tt class="docutils literal"><span class="pre">FinancialID</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>An example in REPL:</p>
+<div class="highlight-julia"><div class="highlight"><pre><span class="n">julia</span><span class="o">&gt;</span> <span class="n">Appleput</span> <span class="o">=</span> <span class="n">LongPut</span><span class="p">(</span><span class="n">Ticker</span><span class="p">(</span><span class="s">&quot;AAPL&quot;</span><span class="p">),</span> <span class="mf">1.21</span><span class="p">,</span> <span class="mf">90.00</span><span class="p">)</span>
+<span class="n">type</span><span class="p">:</span>           <span class="n">LongPut</span>
+<span class="n">ticker</span><span class="p">:</span>         <span class="n">AAPL</span>
+<span class="n">strike</span><span class="p">:</span>         <span class="mf">90.0</span>
+<span class="n">expiry</span><span class="p">:</span>         <span class="mi">2015</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">09</span>
+<span class="n">currency</span><span class="p">:</span>       <span class="n">USD</span>
+</pre></div>
+</div>
+<p>The default <tt class="docutils literal"><span class="pre">expiry</span></tt> is today, which is more likely incorrect. The default currency is <tt class="docutils literal"><span class="pre">USD</span></tt>.</p>
 </div>
 
 
@@ -120,6 +231,8 @@ cannot go below zero, the risk associated with a short put (not considering the 
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="spreads.html" class="btn btn-neutral float-right" title="Spreads">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="currencypair.html" class="btn btn-neutral" title="CurrencyPair"><span class="fa fa-arrow-circle-left"></span> Previous</a>

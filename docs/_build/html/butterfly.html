@@ -30,7 +30,10 @@
   
     <link rel="stylesheet" href="_static/julia.css" type="text/css" />
   
-    <link rel="top" title="financialassetsjl 0.2.2 documentation" href="index.html"/> 
+    <link rel="top" title="financialassetsjl 0.2.2 documentation" href="index.html"/>
+        <link rel="up" title="Spreads" href="spreads.html"/>
+        <link rel="next" title="Iron Condor" href="ironcondor.html"/>
+        <link rel="prev" title="Condor" href="condor.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -61,13 +64,25 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
         
         
-            <ul>
+            <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stock.html">Stock</a></li>
-<li class="toctree-l1"><a class="reference internal" href="future.html">Future</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stock.html">Stocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future.html">Futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bond.html">Bond</a></li>
 <li class="toctree-l1"><a class="reference internal" href="currencypair.html">CurrencyPair</a></li>
-<li class="toctree-l1"><a class="reference internal" href="option.html">Option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="option.html">Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="spreads.html">Spreads</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="vertical.html">Vertical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coveredcall.html">Covered Call</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar.html">Calendar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="condor.html">Condor</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Butterfly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironcondor.html">Iron Condor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diagonal.html">Diagonal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="financialid.html">Financial IDs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="const.html">Const values</a></li>
 </ul>
 
         
@@ -91,6 +106,8 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
+          <li><a href="spreads.html">Spreads</a> &raquo;</li>
+      
     <li>Butterfly</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -104,11 +121,23 @@
             
   <div class="section" id="butterfly">
 <h1>Butterfly<a class="headerlink" href="#butterfly" title="Permalink to this headline">¶</a></h1>
+<p>The butterfly spread involves options of one type, and are constructed in a 1:2:1 ratio with the outer wings of the spread consisting of short options
+and the body consisting of long options. The risk of the spread is whatever premium was paid, which is normally small. A normally constructed butterfly
+spread will have equidistance between the body and the outer wings.</p>
 </div>
 
 
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ironcondor.html" class="btn btn-neutral float-right" title="Iron Condor">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="condor.html" class="btn btn-neutral" title="Condor"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

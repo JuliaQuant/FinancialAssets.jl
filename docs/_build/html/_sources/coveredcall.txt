@@ -1,9 +1,7 @@
-Option
-======
+Covered Call
+============
 
-FinancialAssets is not a registered package. To add it to your Julia packages, simply do the following in 
-REPL ::
+Covered calls combine long stock with short call options. The short call option by itself, sometimes referred to as naked short call, has the greatest
+risk of all the options. But this risk can be offset with long stock. This strategy is often used to generate capital on an existing portfolion of stocks.
 
-    Pkg.clone("https://github.com/JuliaQuant/FinancialAssets.jl.git")
-
-This package is presently experimental and you can expect the API to change.
+Since one option usually controls 100 shares of stock, these spreads are designed to match up stocks against short call options. 

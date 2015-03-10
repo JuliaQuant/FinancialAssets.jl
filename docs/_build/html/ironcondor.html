@@ -30,7 +30,10 @@
   
     <link rel="stylesheet" href="_static/julia.css" type="text/css" />
   
-    <link rel="top" title="financialassetsjl 0.2.2 documentation" href="index.html"/> 
+    <link rel="top" title="financialassetsjl 0.2.2 documentation" href="index.html"/>
+        <link rel="up" title="Spreads" href="spreads.html"/>
+        <link rel="next" title="Diagonal" href="diagonal.html"/>
+        <link rel="prev" title="Butterfly" href="butterfly.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -61,13 +64,25 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
         
         
-            <ul>
+            <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stock.html">Stock</a></li>
-<li class="toctree-l1"><a class="reference internal" href="future.html">Future</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stock.html">Stocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future.html">Futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bond.html">Bond</a></li>
 <li class="toctree-l1"><a class="reference internal" href="currencypair.html">CurrencyPair</a></li>
-<li class="toctree-l1"><a class="reference internal" href="option.html">Option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="option.html">Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="spreads.html">Spreads</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="vertical.html">Vertical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coveredcall.html">Covered Call</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar.html">Calendar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="condor.html">Condor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butterfly.html">Butterfly</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Iron Condor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diagonal.html">Diagonal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="financialid.html">Financial IDs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="const.html">Const values</a></li>
 </ul>
 
         
@@ -91,6 +106,8 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
+          <li><a href="spreads.html">Spreads</a> &raquo;</li>
+      
     <li>Iron Condor</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -104,17 +121,23 @@
             
   <div class="section" id="iron-condor">
 <h1>Iron Condor<a class="headerlink" href="#iron-condor" title="Permalink to this headline">¶</a></h1>
-<p>FinancialAssets is not a registered package. To add it to your Julia packages, simply do the following in
-REPL</p>
-<div class="highlight-julia"><div class="highlight"><pre><span class="n">Pkg</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="s">&quot;https://github.com/JuliaQuant/FinancialAssets.jl.git&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This package is presently experimental and you can expect the API to change.</p>
+<p>The iron condor is a combination of two sets of spreads: short put spreads, typically with strikes below the market, and short call spreads,
+typically above the current market. Since an underlying cannot be at two prices at the same time, the risk associated with an iron condor is
+equal to the higher of the two short verticals.</p>
 </div>
 
 
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="diagonal.html" class="btn btn-neutral float-right" title="Diagonal">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="butterfly.html" class="btn btn-neutral" title="Butterfly"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

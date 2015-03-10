@@ -19,8 +19,8 @@ provided as a convenience and methods dispatched on them assumes long and short 
 | ``ShortFuture`` | futures contract with only short positions allowed             |
 +-----------------+----------------------------------------------------------------+
 
-All the futures types hold the same fields. To create an object, only the ``ticker`` and ``basis`` elements needs to be provided. Default values ]
-or ``Nullalbe`` fields will be filled in for the other fields. 
+All the futures types hold the same fields. To create an object, only the ``ticker`` and ``basis`` elements needs to be provided. Default values
+or ``Nullable`` fields will be filled in for the other fields. 
 
 +----------------+---------------------------------------------+-----------------+ 
 | Type field     | Description                                 | Type            | 

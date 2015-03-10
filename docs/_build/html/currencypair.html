@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="_static/julia.css" type="text/css" />
   
     <link rel="top" title="financialassetsjl 0.2.2 documentation" href="index.html"/>
-        <link rel="next" title="Option" href="option.html"/>
+        <link rel="next" title="Options" href="option.html"/>
         <link rel="prev" title="Bond" href="bond.html"/> 
 
   
@@ -65,11 +65,24 @@
         
             <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stock.html">Stock</a></li>
-<li class="toctree-l1"><a class="reference internal" href="future.html">Future</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stock.html">Stocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future.html">Futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bond.html">Bond</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">CurrencyPair</a></li>
-<li class="toctree-l1"><a class="reference internal" href="option.html">Option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="option.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spreads.html">Spreads</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vertical.html">Vertical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coveredcall.html">Covered Call</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar.html">Calendar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="condor.html">Condor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butterfly.html">Butterfly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironcondor.html">Iron Condor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diagonal.html">Diagonal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntheticstock.html">Synthetic Stock</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="financialid.html">Financial IDs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="const.html">Const values</a></li>
 </ul>
 
         
@@ -106,12 +119,7 @@
             
   <div class="section" id="currencypair">
 <h1>CurrencyPair<a class="headerlink" href="#currencypair" title="Permalink to this headline">¶</a></h1>
-<p>FinancialAssets is not a registered package. To add it to your Julia packages, simply do the following in
-REPL</p>
-<div class="highlight-julia"><div class="highlight"><pre><span class="n">Pkg</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="s">&quot;https://github.com/JuliaQuant/FinancialAssets.jl.git&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This package is presently experimental and you can expect the API to change.</p>
+<p>Currency pairs are spreads between two different currencies.</p>
 </div>
 
 
@@ -120,7 +128,7 @@ REPL</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="option.html" class="btn btn-neutral float-right" title="Option">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="option.html" class="btn btn-neutral float-right" title="Options">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="bond.html" class="btn btn-neutral" title="Bond"><span class="fa fa-arrow-circle-left"></span> Previous</a>
