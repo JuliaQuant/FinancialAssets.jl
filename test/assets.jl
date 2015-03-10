@@ -18,6 +18,10 @@ facts("asset constructors work") do
         @fact ls.basis => 100.00 
         @fact ss.basis => 100.00 
 
+        @fact s.shares  => 1
+        @fact ls.shares => 1
+        @fact ss.shares => 1
+
         @fact s.currency  => USD 
         @fact ls.currency => USD 
         @fact ss.currency => USD 
@@ -56,6 +60,10 @@ facts("asset constructors work") do
         @fact fut.suffix  => ""
         @fact lfut.suffix => ""
         @fact sfut.suffix => ""
+
+        @fact fut.contracts  => 1 
+        @fact lfut.contracts => 1 
+        @fact sfut.contracts => 1 
 
         @fact fut.currency  => USD
         @fact lfut.currency => USD
@@ -105,11 +113,16 @@ facts("asset constructors work") do
         @fact sp.strike => 2000.00
         @fact sc.strike => 2000.00
 
-        @fact lp.expiry => today()
-        @fact lc.expiry => today()
-        @fact sp.expiry => today()
-        @fact sc.expiry => today()
+        @fact typeof(lp.expiry) => Nullable{Date} 
+        @fact typeof(lc.expiry) => Nullable{Date} 
+        @fact typeof(sp.expiry) => Nullable{Date} 
+        @fact typeof(sc.expiry) => Nullable{Date} 
 
+        @fact lp.contracts => 1 
+        @fact lc.contracts => 1 
+        @fact sp.contracts => 1 
+        @fact sc.contracts => 1 
+        
         @fact lp.currency => USD
         @fact lc.currency => USD
         @fact sp.currency => USD
