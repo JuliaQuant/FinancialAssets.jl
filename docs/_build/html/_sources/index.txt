@@ -15,6 +15,3 @@ Contents
    bond
    currencypair
    option
-   spreads
-   financialid
-   const

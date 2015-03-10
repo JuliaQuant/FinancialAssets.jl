@@ -26,6 +26,11 @@ facts("spread constructors work") do
         c2 = ShortCall(Ticker("SPX"), 1.00, 2010.00)
         c3 = ShortCall(Ticker("SPX"), 2.00, 1990.00)
 
+        spv = ShortVertical(p1, p2) 
+        spv = ShortVertical(p1, p2) 
+        lpv  = LongVertical(p1, p2) 
+
+
         @pending typeof(p1 + p2) => Spread{ShortPut, LongPut}
         @pending typeof(p1 + p3) => Spread{LongPut, ShortPut}
         @pending typeof(p1 + p2) => LongPutVertical
@@ -42,9 +47,9 @@ facts("spread constructors work") do
         c1   = ShortCall(Ticker("AAPL"), 1.00, 120.00)
         p1   = ShortPut(Ticker("AAPL"), 1.00, 120.00)
 
-        cc   = CoveredCall(stk, cl)
+        cc   = CoveredCall(stk, c1)
 
-        @fact cc.risk = 80.00
+        @fact cc.risk => 99.00
 
         @pending typeof(stk + c1)  => Spread(Stock, ShortCall)
         @pending typeof(sstk + p1) => Spread(Stock, ShortPut)

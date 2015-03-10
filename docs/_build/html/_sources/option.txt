@@ -1,0 +1,14 @@
+Option
+======
+
+Options are derivative contracts written against an underlying asset. They come in four flavors depending whether they are calls or puts, and
+depending on whether they are short or long.
+
+A call involves the right to purchase, while a put involves the right to sell. These rights are afforded to owners of long options.
+
+A long option is purchased and the risk is limited to the purchase price of the option. A short option is sold (to the purchaser of long
+options) and may included unlimited risk. The seller receives a premium for assuming this risk.
+
+Unlimited risk only applies to short calls, since the price of the underlying can theoretically to to infinity. The risk associated with a short
+put is nearly identical to the risk associated with owning long stock, except that the premium received offsets this risk. Since an underlying
+cannot go below zero, the risk associated with a short put (not considering the premium) is the strike price.
