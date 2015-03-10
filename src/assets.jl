@@ -21,7 +21,7 @@ for ST in STOCKS
     end
 end 
 
-FUTS = [:LongFuture, :ShortFuture]
+FUTS = [:Future, :LongFuture, :ShortFuture]
 
 for F in FUTS
     @eval begin

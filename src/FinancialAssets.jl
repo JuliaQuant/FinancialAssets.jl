@@ -15,7 +15,7 @@ end
 import Base: show
 
 export LongStock, ShortStock, Stock,
-       LongFuture, ShortFuture,
+       LongFuture, ShortFuture, Future,
        LongPut, ShortPut, LongCall, ShortCall,
        LongVertical, ShortVertical, CoveredCall,
        Ticker, OptionExercise,

@@ -1,5 +1,5 @@
-Option
-======
+Options
+=======
 
 Options are derivative contracts written against an underlying asset. They come in four flavors depending whether they are calls or puts, and
 depending on whether they are short or long.

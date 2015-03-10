@@ -1,5 +1,5 @@
-Stock
-=====
+Stocks
+======
 
 Common stock typically represents ownership in a company. Three types are provided to model stocks, ``Stock``, ``LongStock`` and ``ShortStock``. 
 The ``Stock`` type can be used to represent both long and short positions, simply by providing positive or negative values in the ``basis`` element.

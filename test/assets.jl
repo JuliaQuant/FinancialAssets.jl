@@ -37,33 +37,43 @@ facts("asset constructors work") do
 
     context("Futures") do
 
+        fut  = Future(Ticker("ES"), 2000.00)
         lfut = LongFuture(Ticker("ES"), 2000.00)
         sfut = ShortFuture(Ticker("ES"), 2000.00)
 
+        @fact typeof(fut)  => Future
         @fact typeof(lfut) => LongFuture
         @fact typeof(sfut) => ShortFuture
 
+        @fact fut.ticker.id  => "ES"
         @fact lfut.ticker.id => "ES"
         @fact sfut.ticker.id => "ES"
         
+        @fact fut.basis  => 2000.00 
         @fact lfut.basis => 2000.00 
         @fact sfut.basis => 2000.00 
 
+        @fact fut.suffix  => ""
         @fact lfut.suffix => ""
         @fact sfut.suffix => ""
 
+        @fact fut.currency  => USD
         @fact lfut.currency => USD
         @fact sfut.currency => USD
 
+        @fact typeof(fut.tick)  => Nullable{Float64}
         @fact typeof(lfut.tick) => Nullable{Float64}
         @fact typeof(sfut.tick) => Nullable{Float64}
 
+        @fact typeof(fut.multiplier)  => Nullable{Float64}
         @fact typeof(lfut.multiplier) => Nullable{Float64}
         @fact typeof(sfut.multiplier) => Nullable{Float64}
 
+        @fact typeof(fut.expiry)  => Nullable{Date}
         @fact typeof(lfut.expiry) => Nullable{Date}
         @fact typeof(sfut.expiry) => Nullable{Date}
 
+        @fact typeof(fut.id)  => Nullable{FinancialID}
         @fact typeof(lfut.id) => Nullable{FinancialID}
         @fact typeof(sfut.id) => Nullable{FinancialID}
     end
