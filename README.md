@@ -7,4 +7,4 @@
 ````julia
 julia> Pkg.clone("https://github.com/JuliaQuant/FinancialAssets.jl.git")
 ````
-[Documentation]("http://financialassetsjl.readthedocs.org/en/latest/")
+[Documentation](http://financialassetsjl.readthedocs.org/en/latest/)
