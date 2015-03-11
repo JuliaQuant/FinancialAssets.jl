@@ -30,5 +30,8 @@ include("id.jl")
 include("assets.jl")
 include("const.jl")
 include("spread.jl")
+include("spread.jl")
+include("apply.jl")
+include("risk.jl")
 
 end

@@ -1,5 +1,8 @@
-using Base.Test
-
 function *(n::Int, asset::FinancialAsset)
-    @test_throws ErrorException asset.contracts
+    if typeof(asset) == Stock || LongStock || ShortStock
+        asset.shares = asset.shares * n
+    else
+        asset.contracts = asset.contracts * n
+    end
+    asset
 end
