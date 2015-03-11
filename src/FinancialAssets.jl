@@ -17,7 +17,8 @@ import Base: show
 export LongStock, ShortStock, Stock,
        LongFuture, ShortFuture, Future,
        LongPut, ShortPut, LongCall, ShortCall,
-       LongVertical, ShortVertical, CoveredCall,
+       LongPutVertical, LongCallVertical, ShortPutVertical, ShortCallVertical,
+       CoveredCall,
        Ticker, OptionExercise,
        CUSIP, BloombergID, ReutersID, FinancialID,
        American, European,
@@ -29,7 +30,6 @@ export LongStock, ShortStock, Stock,
 include("id.jl")
 include("assets.jl")
 include("const.jl")
-include("spread.jl")
 include("spread.jl")
 include("apply.jl")
 include("risk.jl")
