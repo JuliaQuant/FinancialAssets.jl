@@ -14,11 +14,7 @@ before_install:
     - sudo apt-get install libpcre3-dev julia -y
     - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 script:
-  - julia -e 'Pkg.init(); run(`ln -s $(pwd()) $(Pkg.dir("FinancialAssets"))`); Pkg.pin("FinancialAssets"); Pkg.resolve()'
-  - julia ./test/runtests.jl
-    
-### script:
-###     - julia -e 'Pkg.init(); Pkg.clone(pwd())'
-###     - julia -e 'Pkg.test("FinancialAssets",coverage=true)'
+    - julia -e 'Pkg.init(); Pkg.clone(pwd())'
+    - julia -e 'Pkg.test("FinancialAssets",coverage=true)'
 after_success:
     - julia -e 'cd(Pkg.dir("FinancialAssets")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
