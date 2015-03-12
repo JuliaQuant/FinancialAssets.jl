@@ -1,16 +1,6 @@
-if VERSION < v"0.4-"
-    using Dates
-else
-    using Base.Dates
-end
-
 module FinancialAssets
 
-if VERSION < v"0.4-"
-    using Dates
-else
-    using Base.Dates
-end
+using Base.Dates
 
 import Base: show
 
