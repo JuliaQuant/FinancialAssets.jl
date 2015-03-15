@@ -5,7 +5,8 @@ STOCKS = [:LongStock, :ShortStock, :Stock]
 for ST in STOCKS
     @eval begin
         type ($ST) <: FinancialAsset
-            ticker::Ticker
+            #ticker::Ticker
+            ticker::Symbol
             basis::Float64
             shares::Int
             currency::Currency
@@ -27,7 +28,8 @@ FUTS = [:Future, :LongFuture, :ShortFuture]
 for F in FUTS
     @eval begin
         type ($F) <: FinancialAsset
-            ticker::Ticker
+            #ticker::Ticker
+            ticker::Symbol
             basis::Float64
             suffix::UTF8String
             contracts::Int
@@ -53,7 +55,8 @@ OPTIONS = [:LongPut, :LongCall, :ShortPut, :ShortCall]
 for OP in OPTIONS
     @eval begin
         type ($OP) <: FinancialAsset
-            ticker::Ticker
+            #ticker::Ticker
+            ticker::Symbol
             basis::Float64
             strike::Float64
             expiry::Union(Date, Nullable{Date})

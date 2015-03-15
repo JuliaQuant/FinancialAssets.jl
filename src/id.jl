@@ -1,6 +1,6 @@
 abstract FinancialID
 
-IDLIST = [:Ticker, 
+IDLIST = [#:Ticker, 
           :OptionExercise,
           :CUSIP,
           :BloombergID,

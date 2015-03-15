@@ -4,12 +4,14 @@ using Base.Dates
 
 import Base: show
 
-export LongStock, ShortStock, Stock,
+export FinancialAsset,
+       LongStock, ShortStock, Stock,
        LongFuture, ShortFuture, Future,
        LongPut, ShortPut, LongCall, ShortCall,
        LongPutVertical, LongCallVertical, ShortPutVertical, ShortCallVertical,
        CoveredCall,
-       Ticker, OptionExercise,
+       #Ticker, 
+       OptionExercise,
        CUSIP, BloombergID, ReutersID, FinancialID,
        American, European,
        Currency, CurrencyPair,
