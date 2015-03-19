@@ -8,7 +8,7 @@ for ST in STOCKS
             #ticker::Ticker
             ticker::Symbol
             basis::Float64
-            shares::Int
+            quantity::Int
             currency::Currency
             tick::Float64
             multiplier::Float64
@@ -32,7 +32,7 @@ for F in FUTS
             ticker::Symbol
             basis::Float64
             suffix::UTF8String
-            contracts::Int
+            quantity::Int
             currency::Currency
             tick::Union(Float64, Nullable{Float64})
             multiplier::Union(Float64, Nullable{Float64})
@@ -60,7 +60,7 @@ for OP in OPTIONS
             basis::Float64
             strike::Float64
             expiry::Union(Date, Nullable{Date})
-            contracts::Int
+            quantity::Int
             currency::Currency
             style::Union(OptionExercise, Nullable{OptionExercise})
             tick::Union(Float64, Nullable{Float64})
@@ -91,7 +91,7 @@ end
 function show(io::IO, s::Union(LongStock, ShortStock, Stock))
     println(io, @sprintf("ticker:         %s", s.ticker))
     println(io, @sprintf("basis:          %s", s.basis))
-    println(io, @sprintf("shares:         %s", s.shares))
+    println(io, @sprintf("quantity:         %s", s.quantity))
     println(io, @sprintf("currency:       %s", s.currency))
     println(io, @sprintf("tick:           %s", s.tick))
     println(io, @sprintf("multiplier:     %s", s.multiplier))
@@ -106,7 +106,7 @@ end
 function show(io::IO, f::Union(LongFuture, ShortFuture, Future))
     println(io, @sprintf("ticker:         %s", string(f.ticker)) * "/" * f.suffix) #concat the ticker and suffix
     println(io, @sprintf("basis:          %s", f.basis))
-    println(io, @sprintf("contracts:      %s", f.contracts))
+    println(io, @sprintf("quantity:      %s", f.quantity))
     println(io, @sprintf("currency:       %s", f.currency))
 
     if typeof(f.tick) == Nullable{Float64} 
@@ -155,7 +155,7 @@ function show(io::IO, opt::Union(LongPut, ShortPut, LongCall, ShortCall))
     println(io, @sprintf("expiry:         %s", opt.expiry))
     end
 
-    println(io, @sprintf("contracts:      %s", opt.contracts))
+    println(io, @sprintf("quantity:      %s", opt.quantity))
     println(io, @sprintf("currency:       %s", opt.currency))
 
     if typeof(opt.style) == Nullable{OptionExercise} 

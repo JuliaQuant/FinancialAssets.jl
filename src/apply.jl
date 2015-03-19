@@ -1,16 +1,12 @@
 function *(n::Int, asset::FinancialAsset)
-    if typeof(asset) == Stock || LongStock || ShortStock
-        asset.shares = asset.shares * n
-    else
-        asset.contracts = asset.contracts * n
-    end
+        asset.quantity = asset.quantity * n
     asset
 end
 
 function +(x::LongPut, y::ShortPut) 
     if x.ticker != y.ticker 
         error("Only same underlying spreads supported") 
-    elseif contracts != y.contracts 
+    elseif quantity != y.quantity 
         error("Only same contract size supported")
     elseif x.expiry != y.expiry
         error("Only same expiry supported")
@@ -32,9 +28,9 @@ function +(x::Stock, y::Stock)
         nothing
     end
 
-    new_basis  = x.basis * x.shares/(x.shares + y.shares) + y.basis * y.shares/(x.shares + y.shares)
-    new_shares = x.shares + y.shares
+    new_basis  = x.basis * x.quantity/(x.quantity + y.quantity) + y.basis * y.quantity/(x.quantity + y.quantity)
+    new_quantity = x.quantity + y.quantity
     new_id     = isnull(x.id) ? y.id : x.id
 
-    Stock(x.ticker, new_basis, new_shares , x.currency, .01, 1., new_id)
+    Stock(x.ticker, new_basis, new_quantity , x.currency, .01, 1., new_id)
 end
