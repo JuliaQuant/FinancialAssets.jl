@@ -31,13 +31,15 @@ or ``Nullable`` fields will be filled in for the other fields.
 +----------------+---------------------------------------------+-----------------+ 
 | ``suffix``     | month and year expiry string                | ``UTF8String``  |
 +----------------+---------------------------------------------+-----------------+ 
+| ``quantity``   | number of contracts                         | ``Int``         |
++----------------+---------------------------------------------+-----------------+ 
 | ``currency``   | national currency                           | ``Currency``    |
 +----------------+---------------------------------------------+-----------------+ 
 | ``tick``       | increments traded in                        | ``Float64``     | 
 +----------------+---------------------------------------------+-----------------+ 
 | ``multiplier`` | degree to adjust position based on price    | ``Flot64``      | 
 +----------------+---------------------------------------------+-----------------+ 
-| ``expirty``    | expiration date for the contrct             | ``Date``        | 
+| ``expiry``     | expiration date for the contrct             | ``Date``        | 
 +----------------+---------------------------------------------+-----------------+ 
 | ``id``         | a unique non-exchange identification symbol | ``FinancialID`` | 
 +----------------+---------------------------------------------+-----------------+ 
